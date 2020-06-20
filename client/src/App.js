@@ -1,25 +1,26 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 require("dotenv").config()
 
+
 function App() {
 
   useEffect(() => {
-    console.log('Effect has been run')
+    getRecipes();
   }, [])
-  
-  const [counter, setCounter] = useState(0)
 
-  const exampleRequest = 
-  `https://api.edamam.com/search?q=chicken&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`
-
+  const getRecipes = async () => {
+    const res = await fetch("https://api.edamam.com/search?q=chicken&app_id=" + process.env.REACT_APP_APP_ID + "&app_key=" + process.env.REACT_APP_APP_KEY)
+    const data = await res.json();
+    console.log(data);
+  }
 
 
   return (
     <div className="App">
       <form className="search-form">
-        <input type="text" className="search-bar"/>
+        <input type="text" className="search-bar" />
         <button className="search-button" type='submit'>Search</button>
       </form>
     </div>
